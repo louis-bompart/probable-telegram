@@ -1,13 +1,15 @@
-const log = require('fancy-log')
-const bazTasks = require('./tasks/baz.tasks')
+const gulp = require('gulp');
 
-const foo = done => {
-    log('Foo');
-}
+const { imgWatch } = require('./tasks/img.tasks');
+const { styleWatch } = require('./tasks/style.tasks');
+
+const watch = gulp.parallel(styleWatch, imgWatch);
+const uploadPackageRelease = require('./tasks/uploadPackage.tasks').uploadPackageRelease;
+
+const dev = gulp.parallel(watch, () => {
+  return gulp.watch('somefile');
+});
+
 module.exports = {
-    foo: foo
-}
-module.exports = {
-    ...module.exports,
-    baz: bazTasks.baz
+  uploadPackageRelease: uploadPackageRelease,
 }
