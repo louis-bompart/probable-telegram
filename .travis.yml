@@ -1,0 +1,9 @@
+language: node_js
+sudo: required
+node_js:
+  - 'lts/*'
+before_install: 
+  - npm i -g gulp-cli@2.2.0
+before_script:
+script:
+  - gulp -T
